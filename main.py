@@ -33,8 +33,8 @@ Information:
     #     timeout=None,
     #     max_retries=2,
     # )
-    
-    llm = ChatOllama(temperature=0, model="gemma3:270m")
+    model = "gpt-oss:20b" #"gemma3:270m"
+    llm = ChatOllama(temperature=0, model=model)
 
     chain = summary_prompt_template | llm  
     response = chain.invoke(input={"information": information})  
