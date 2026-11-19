@@ -13,11 +13,11 @@ def main():
     
     # Cleaned up template formatting so instructions and data are distinctly separated
     summary_template = """Based on the information below about a dog, create:
-1. A short summary
-2. Two interesting facts about them
+                1. A short summary
+                2. Two interesting facts about them
 
-Information:
-{information}"""
+                Information:
+                {information}"""
     
     summary_prompt_template = PromptTemplate(
         input_variables=["information"],
@@ -39,7 +39,7 @@ Information:
     chain = summary_prompt_template | llm  
     response = chain.invoke(input={"information": information})  
     print(response.content)
-    
+
 
 if __name__ == "__main__":
     main()
