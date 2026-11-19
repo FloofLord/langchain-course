@@ -4,8 +4,11 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.agents import create_agent
 from langchain.tools import tool
 from langchain_core.messages import HumanMessage
+from tavily import TavilyClient
 
 load_dotenv()
+
+tavily = TavilyClient()
 
 @tool
 def search(query: str) -> str:
@@ -17,18 +20,18 @@ def search(query: str) -> str:
         The search result
     """
     print(f"Searching for {query}")
-    return "Tokyo weather is sunny"
+    return tavily.search(query=query)
 
 # gemma3:270m faster model but is not able to use tools
-llm = ChatOllama(temperature=0,model="gemma4:latest")
+#llm = ChatOllama(temperature=0,model="gemma4:latest")
 
-
-# llm = ChatGoogleGenerativeAI(
-#     model="gemini-3.8-flash",
-#     max_tokens=None,
-#     timeout=None,
-#     max_retries=2,
-# )
+#gemini-4-argon/hydrogen
+llm = ChatGoogleGenerativeAI(
+    model="gemini-4-hydrogen",
+    max_tokens=None,
+    timeout=None,
+    max_retries=2,
+)
 
 
 tools = [search]
