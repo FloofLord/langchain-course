@@ -10,6 +10,7 @@ load_dotenv()
 
 tavily = TavilyClient()
 
+
 @tool
 def search(query: str) -> str:
     """
@@ -22,10 +23,11 @@ def search(query: str) -> str:
     print(f"Searching for {query}")
     return tavily.search(query=query)
 
-# gemma3:270m faster model but is not able to use tools
-#llm = ChatOllama(temperature=0,model="gemma4:latest")
 
-#gemini-4-argon/hydrogen
+# gemma3:270m faster model but is not able to use tools
+# llm = ChatOllama(temperature=0,model="gemma4:latest")
+
+# gemini-4-argon/hydrogen
 llm = ChatGoogleGenerativeAI(
     model="gemini-4-hydrogen",
     max_tokens=None,
@@ -35,10 +37,11 @@ llm = ChatGoogleGenerativeAI(
 
 
 tools = [search]
-agent = create_agent(model=llm, tools = tools)
+agent = create_agent(model=llm, tools=tools)
 
 
-result = agent.invoke({"messages":HumanMessage(content="What is the weather in Tokyo?")})
+result = agent.invoke(
+    {"messages": HumanMessage(content="What is the weather in Tokyo?")}
+)
 
 print(result)
-    
